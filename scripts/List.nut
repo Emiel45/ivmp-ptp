@@ -1,10 +1,12 @@
 class List {
-    list = [ ];
+    elements = null;
 
-    constructor() { }
+    constructor(...) {
+        this.elements = vargv;
+    }
 
     function size() {
-        return list.len();
+        return elements.len();
     }
 
     function isEmpty() {
@@ -12,40 +14,63 @@ class List {
     }
 
     function add(val) {
-        list.push(val);
+        elements.push(val);
     }
 
     function addAll(parm) {
         if(parm instanceof List) {
-            list.extend(parm.list);
+            elements.extend(parm.elements);
         }
 
         if(parm instanceof Array) {
-            list.extend(parm);
+            elements.extend(parm);
         }
     }
 
+    function remove(val) {
+        local index = this.indexOf(val);
+
+        if(index != -1) {
+            elements.remove(index);
+        }
+    }
+
+    function contains(val) {
+        return elements.find(val) != null;
+    }
+
+    function indexOf(val) {
+        local index = elements.find(val);
+        return index == null ? -1 : index;
+    }
+
     function insert(idx, val) {
-        list.insert(idx, val);
+        elements.insert(idx, val);
     }
 
     function clear() {
-        list.clear();
+        elements.clear();
     }
 
     function _get(idx) {
-        return list[idx];
+        return elements[idx];
     }
 
-    function _nexti(idx) {
-
+    function _nexti(previdx) {
+        if(previdx == null) {
+            if(this.isEmpty()) return null;
+            else return 0;
+        } else {
+            if(previdx == elements.len() - 1) return null;
+            else return previdx + 1;
+        }
     }
 
     function _tostring() {
         local str = "";
 
         str += "[";
-        foreach(idx, val in list) {
+        foreach(idx, val in elements) {
             if(idx == 0) str += val;
             else str += ", " + val;
         }
